@@ -11,7 +11,7 @@ class BlogPostForm extends Form {
   public function __construct($name = null) {
     parent::__construct('blogpost');
     $this->setAttribute('method', 'post');
-//    $this->setInputFilter(new \MyBlog\Form\BlogPostInputFilter());
+    $this->setInputFilter(new \MyBlog\Form\BlogPostInputFilter());
     $this->add(array(
         'name' => 'security',
         'type' => 'Zend\Form\Element\Csrf',
