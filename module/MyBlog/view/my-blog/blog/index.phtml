@@ -1,16 +1,26 @@
 <?php
-print $this->showMessages();
+    print $this->showMessages();
 ?>
-<div><?php print '<a href="' . $this->url('blog', array('action' => 'add')) . '">Create new blog post</a>' ?></div>
+
 <ul>
-  <?php
-  foreach ($this->posts as $post) {
-    print '<li>
-            <a href="' . $this->url('blog', array('action' => 'view', 'id' => $post['id'])) . '">' . $post['title'] . '</a>
-            [' . date('d.m.Y H:i', $post['created']) . '],
-            <a href="' . $this->url('blog', array('action' => 'edit', 'id' => $post['id'])) . '">edit</a>,
-            <a href="' . $this->url('blog', array('action' => 'delete', 'id' => $post['id'])) . '">delete</a>
-            </li>';
-  }
-  ?>
+<?php
+    if ($this->isAllowed('controller/MyBlog\Controller\BlogPost:edit')) {
+        foreach($this->posts as $post) {
+            print '<li>
+                <a href="' . $this->url('blog', array('action'=>'view', 'id' => $post['id'])) . '">' . $post['title'] . '</a>
+                [' . date('d.m.Y H:i', $post['created']). '],
+                <a href="' . $this->url('blog', array('action'=>'edit', 'id' => $post['id'])) . '">edit</a>,
+                <a href="' . $this->url('blog', array('action'=>'delete', 'id' => $post['id'])) . '">delete</a>
+                </li>';
+        }
+    }
+    else {
+        foreach($this->posts as $post) {
+            print '<li>
+                <a href="' . $this->url('blog', array('action'=>'view', 'id' => $post['id'])) . '">' . $post['title'] . '</a>
+                [' . date('d.m.Y H:i', $post['created']). ']
+                </li>';
+        }
+    }
+?>
 </ul>
